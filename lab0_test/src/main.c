@@ -1,5 +1,6 @@
 #include "stm32f0xx.h"
-void internal_clock();
+extern void autotest();
+extern void internal_clock();
 void setup_serial(void)
 {
     RCC->AHBENR |= 0x00180000;
@@ -17,7 +18,9 @@ void setup_serial(void)
 int main(void)
 {
     internal_clock();   // Never comment this out!
-    //autotest();         // We'll run this in the next step.
+
+    autotest();         // Only comment this out when you are done testing.
+    
     setup_serial();
     while(1) {
         if ((USART5->ISR & USART_ISR_RXNE))  // if receive buffer has some data in it
